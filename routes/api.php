@@ -6,13 +6,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::group([
     'prefix' => 'auth'
-], function(){
+], function () {
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
 });
 
-Route::middleware(['auth:sanctum'])->group(function(){
-    Route::get('example', function(){
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('example', function () {
         return 'hi swarup';
     });
 });

@@ -15,7 +15,7 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required | string | max:255',
             'email' => 'required | email | max:191 | unique:users',
-            'password' => 'required | min:6 | string'
+            'password' => 'required | min:6 | string | confirmed',
         ]);
 
         $user = User::create([
@@ -53,11 +53,11 @@ class AuthController extends Controller
                 'user' => $user,
                 'token' => $token,
                 'success' => 'Logged in successfully'
-            ]);
+            ], 200);
         }
 
         return response()->json([
             'error' => 'Credential not matched'
-        ]);
+        ], 400);
     }
 }
