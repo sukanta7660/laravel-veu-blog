@@ -1,4 +1,4 @@
-# **Hiring-Services**
+# **Laravel Vue Blog**
 
 
 ## Installation
