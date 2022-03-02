@@ -1,38 +1,30 @@
 <template>
-  <div class="nav-bar">
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-      <div class="container">
-        <router-link class="navbar-brand" to="/">laravel Vue Blog</router-link>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <!-- Left Side Of Navbar -->
-          <ul class="navbar-nav mr-auto"></ul>
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <router-link class="nav-link" to="/dashboard">Dashboard</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link class="nav-link" to="/login">Login</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link class="nav-link" to="/register">Register</router-link>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </div>
+  <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg" style="background: #111;" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="index.html">Bloggo</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                        <li class="nav-item">
+                            <router-link class="nav-link px-lg-3 py-3 py-lg-4" to="/">Home</router-link>
+                        </li>
+                        <li class="nav-item">
+                        <router-link class="nav-link px-lg-3 py-3 py-lg-4" to="/dashboard">Dashboard</router-link>
+                        </li>
+                        <li class="nav-item">
+                        <router-link class="nav-link px-lg-3 py-3 py-lg-4" to="/login">Login</router-link>
+                        </li>
+                        <li class="nav-item">
+                        <router-link class="nav-link px-lg-3 py-3 py-lg-4" to="/register">Register</router-link>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
 </template>
 <script>
 export default {

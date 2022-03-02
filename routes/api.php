@@ -17,4 +17,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
         return true;
     });
 
+    Route::get('/user', function(Request $request){
+        return $request->user();
+    });
+
 });

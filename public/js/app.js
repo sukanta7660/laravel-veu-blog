@@ -5567,15 +5567,95 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Dashboard",
   data: function data() {
-    return {};
+    return {
+      authUser: null
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get('/api/user').then(function (response) {
+      _this.authUser = response.data;
+    });
   }
 });
 
@@ -5592,6 +5672,64 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5617,14 +5755,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -29163,11 +29293,122 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _vm._v("\n      Dashboard\n"),
-  ])
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container px-4 px-lg-5 mt-5" }, [
+      _c(
+        "div",
+        {
+          staticClass: "row gx-4 gx-lg-5 justify-content-center",
+          staticStyle: { "margin-top": "110px" },
+        },
+        [
+          _c("div", { staticClass: "col-md-10 col-lg-8 col-xl-7" }, [
+            _c("div", { staticClass: "post-preview" }, [
+              _c("a", { attrs: { href: "post.html" } }, [
+                _c("h2", { staticClass: "post-title" }, [
+                  _vm._v(
+                    "Man must explore, and this is exploration at its greatest"
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("h3", { staticClass: "post-subtitle" }, [
+                  _vm._v("Problems look mighty small from 150 miles up"),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "post-meta" }, [
+                _vm._v("\n          Posted by\n          "),
+                _c("a", { attrs: { href: "#!" } }, [_vm._v("Start Bootstrap")]),
+                _vm._v("\n          on September 24, 2021\n        "),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("hr", { staticClass: "my-4" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "post-preview" }, [
+              _c("a", { attrs: { href: "post.html" } }, [
+                _c("h2", { staticClass: "post-title" }, [
+                  _vm._v(
+                    "I believe every human has a finite number of heartbeats. I don't intend to waste any of mine."
+                  ),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "post-meta" }, [
+                _vm._v("\n          Posted by\n          "),
+                _c("a", { attrs: { href: "#!" } }, [_vm._v("Start Bootstrap")]),
+                _vm._v("\n          on September 18, 2021\n        "),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("hr", { staticClass: "my-4" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "post-preview" }, [
+              _c("a", { attrs: { href: "post.html" } }, [
+                _c("h2", { staticClass: "post-title" }, [
+                  _vm._v("Science has not yet mastered prophecy"),
+                ]),
+                _vm._v(" "),
+                _c("h3", { staticClass: "post-subtitle" }, [
+                  _vm._v(
+                    "We predict too much for the next year and yet far too little for the next ten."
+                  ),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "post-meta" }, [
+                _vm._v("\n          Posted by\n          "),
+                _c("a", { attrs: { href: "#!" } }, [_vm._v("Start Bootstrap")]),
+                _vm._v("\n          on August 24, 2021\n        "),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("hr", { staticClass: "my-4" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "post-preview" }, [
+              _c("a", { attrs: { href: "post.html" } }, [
+                _c("h2", { staticClass: "post-title" }, [
+                  _vm._v("Failure is not an option"),
+                ]),
+                _vm._v(" "),
+                _c("h3", { staticClass: "post-subtitle" }, [
+                  _vm._v(
+                    "Many say exploration is part of our destiny, but it’s actually our duty to future generations."
+                  ),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "post-meta" }, [
+                _vm._v("\n          Posted by\n          "),
+                _c("a", { attrs: { href: "#!" } }, [_vm._v("Start Bootstrap")]),
+                _vm._v("\n          on July 8, 2021\n        "),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("hr", { staticClass: "my-4" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "d-flex justify-content-end mb-4" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-primary text-uppercase",
+                  attrs: { href: "#!" },
+                },
+                [_vm._v("Older Posts →")]
+              ),
+            ]),
+          ]),
+        ]
+      ),
+    ])
+  },
+]
 render._withStripped = true
 
 
@@ -29190,11 +29431,130 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _vm._v("\n      hey sukanta\n"),
-  ])
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container px-4 px-lg-5 mt-5" }, [
+      _c(
+        "div",
+        {
+          staticClass: "row gx-4 gx-lg-5 justify-content-center",
+          staticStyle: { "margin-top": "110px" },
+        },
+        [
+          _c("div", { staticClass: "col-md-10 col-lg-8 col-xl-7" }, [
+            _c("div", { staticClass: "post-preview" }, [
+              _c("a", { attrs: { href: "post.html" } }, [
+                _c("h2", { staticClass: "post-title" }, [
+                  _vm._v(
+                    "Man must explore, and this is exploration at its greatest"
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("h3", { staticClass: "post-subtitle" }, [
+                  _vm._v("Problems look mighty small from 150 miles up"),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "post-meta" }, [
+                _vm._v("\n                    Posted by\n                    "),
+                _c("a", { attrs: { href: "#!" } }, [_vm._v("Start Bootstrap")]),
+                _vm._v(
+                  "\n                    on September 24, 2021\n                "
+                ),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("hr", { staticClass: "my-4" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "post-preview" }, [
+              _c("a", { attrs: { href: "post.html" } }, [
+                _c("h2", { staticClass: "post-title" }, [
+                  _vm._v(
+                    "I believe every human has a finite number of heartbeats. I don't intend to waste any of mine."
+                  ),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "post-meta" }, [
+                _vm._v("\n                    Posted by\n                    "),
+                _c("a", { attrs: { href: "#!" } }, [_vm._v("Start Bootstrap")]),
+                _vm._v(
+                  "\n                    on September 18, 2021\n                "
+                ),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("hr", { staticClass: "my-4" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "post-preview" }, [
+              _c("a", { attrs: { href: "post.html" } }, [
+                _c("h2", { staticClass: "post-title" }, [
+                  _vm._v("Science has not yet mastered prophecy"),
+                ]),
+                _vm._v(" "),
+                _c("h3", { staticClass: "post-subtitle" }, [
+                  _vm._v(
+                    "We predict too much for the next year and yet far too little for the next ten."
+                  ),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "post-meta" }, [
+                _vm._v("\n                    Posted by\n                    "),
+                _c("a", { attrs: { href: "#!" } }, [_vm._v("Start Bootstrap")]),
+                _vm._v(
+                  "\n                    on August 24, 2021\n                "
+                ),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("hr", { staticClass: "my-4" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "post-preview" }, [
+              _c("a", { attrs: { href: "post.html" } }, [
+                _c("h2", { staticClass: "post-title" }, [
+                  _vm._v("Failure is not an option"),
+                ]),
+                _vm._v(" "),
+                _c("h3", { staticClass: "post-subtitle" }, [
+                  _vm._v(
+                    "Many say exploration is part of our destiny, but it’s actually our duty to future generations."
+                  ),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "post-meta" }, [
+                _vm._v("\n                    Posted by\n                    "),
+                _c("a", { attrs: { href: "#!" } }, [_vm._v("Start Bootstrap")]),
+                _vm._v(
+                  "\n                    on July 8, 2021\n                "
+                ),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("hr", { staticClass: "my-4" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "d-flex justify-content-end mb-4" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-primary text-uppercase",
+                  attrs: { href: "#!" },
+                },
+                [_vm._v("Older Posts →")]
+              ),
+            ]),
+          ]),
+        ]
+      ),
+    ])
+  },
+]
 render._withStripped = true
 
 
@@ -29217,85 +29577,100 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "nav-bar" }, [
-    _c(
-      "nav",
-      {
-        staticClass: "navbar navbar-expand-md navbar-light bg-white shadow-sm",
-      },
-      [
+  return _c(
+    "nav",
+    {
+      staticClass: "navbar navbar-expand-lg",
+      staticStyle: { background: "#111" },
+      attrs: { id: "mainNav" },
+    },
+    [
+      _c("div", { staticClass: "container px-4 px-lg-5" }, [
+        _c(
+          "a",
+          { staticClass: "navbar-brand", attrs: { href: "index.html" } },
+          [_vm._v("Bloggo")]
+        ),
+        _vm._v(" "),
+        _vm._m(0),
+        _vm._v(" "),
         _c(
           "div",
-          { staticClass: "container" },
+          {
+            staticClass: "collapse navbar-collapse",
+            attrs: { id: "navbarResponsive" },
+          },
           [
-            _c(
-              "router-link",
-              { staticClass: "navbar-brand", attrs: { to: "/" } },
-              [_vm._v("laravel Vue Blog")]
-            ),
-            _vm._v(" "),
-            _vm._m(0),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "collapse navbar-collapse",
-                attrs: { id: "navbarSupportedContent" },
-              },
-              [
-                _c("ul", { staticClass: "navbar-nav mr-auto" }),
-                _vm._v(" "),
-                _c("ul", { staticClass: "navbar-nav ml-auto" }, [
+            _c("ul", { staticClass: "navbar-nav ms-auto py-4 py-lg-0" }, [
+              _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
                   _c(
-                    "li",
-                    { staticClass: "nav-item" },
-                    [
-                      _c(
-                        "router-link",
-                        {
-                          staticClass: "nav-link",
-                          attrs: { to: "/dashboard" },
-                        },
-                        [_vm._v("Dashboard")]
-                      ),
-                    ],
-                    1
+                    "router-link",
+                    {
+                      staticClass: "nav-link px-lg-3 py-3 py-lg-4",
+                      attrs: { to: "/" },
+                    },
+                    [_vm._v("Home")]
                   ),
-                  _vm._v(" "),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
                   _c(
-                    "li",
-                    { staticClass: "nav-item" },
-                    [
-                      _c(
-                        "router-link",
-                        { staticClass: "nav-link", attrs: { to: "/login" } },
-                        [_vm._v("Login")]
-                      ),
-                    ],
-                    1
+                    "router-link",
+                    {
+                      staticClass: "nav-link px-lg-3 py-3 py-lg-4",
+                      attrs: { to: "/dashboard" },
+                    },
+                    [_vm._v("Dashboard")]
                   ),
-                  _vm._v(" "),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
                   _c(
-                    "li",
-                    { staticClass: "nav-item" },
-                    [
-                      _c(
-                        "router-link",
-                        { staticClass: "nav-link", attrs: { to: "/register" } },
-                        [_vm._v("Register")]
-                      ),
-                    ],
-                    1
+                    "router-link",
+                    {
+                      staticClass: "nav-link px-lg-3 py-3 py-lg-4",
+                      attrs: { to: "/login" },
+                    },
+                    [_vm._v("Login")]
                   ),
-                ]),
-              ]
-            ),
-          ],
-          1
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link px-lg-3 py-3 py-lg-4",
+                      attrs: { to: "/register" },
+                    },
+                    [_vm._v("Register")]
+                  ),
+                ],
+                1
+              ),
+            ]),
+          ]
         ),
-      ]
-    ),
-  ])
+      ]),
+    ]
+  )
 }
 var staticRenderFns = [
   function () {
@@ -29308,14 +29683,17 @@ var staticRenderFns = [
         staticClass: "navbar-toggler",
         attrs: {
           type: "button",
-          "data-toggle": "collapse",
-          "data-target": "#navbarSupportedContent",
-          "aria-controls": "navbarSupportedContent",
+          "data-bs-toggle": "collapse",
+          "data-bs-target": "#navbarResponsive",
+          "aria-controls": "navbarResponsive",
           "aria-expanded": "false",
           "aria-label": "Toggle navigation",
         },
       },
-      [_c("span", { staticClass: "navbar-toggler-icon" })]
+      [
+        _vm._v("\n                  Menu\n                  "),
+        _c("i", { staticClass: "fas fa-bars" }),
+      ]
     )
   },
 ]
