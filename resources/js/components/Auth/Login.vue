@@ -12,7 +12,11 @@
               <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" v-model="credential.email" id="email" />
-                <div class="text-danger" v-if="credential.errors.has('email')" v-html="credential.errors.get('email')" />
+                <div
+                  class="text-danger"
+                  v-if="credential.errors.has('email')"
+                  v-html="credential.errors.get('email')"
+                />
               </div>
               <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
@@ -22,7 +26,11 @@
                   class="form-control"
                   id="password"
                 />
-                <div class="text-danger" v-if="credential.errors.has('password')" v-html="credential.errors.get('password')" />
+                <div
+                  class="text-danger"
+                  v-if="credential.errors.has('password')"
+                  v-html="credential.errors.get('password')"
+                />
               </div>
               <button type="submit" class="btn btn-primary">Submit</button>
               <p>
@@ -37,7 +45,6 @@
   </div>
 </template>
 <script>
-import Form from 'vform'
 export default {
   name: "Login",
   data() {

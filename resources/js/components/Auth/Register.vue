@@ -12,12 +12,20 @@
               <div class="mb-3">
                 <label for="name" class="form-label">name</label>
                 <input type="name" class="form-control" v-model="credential.name" id="name" />
-                <div class="text-danger" v-if="credential.errors.has('name')" v-html="credential.errors.get('name')" />
+                <div
+                  class="text-danger"
+                  v-if="credential.errors.has('name')"
+                  v-html="credential.errors.get('name')"
+                />
               </div>
               <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" v-model="credential.email" id="email" />
-                <div class="text-danger" v-if="credential.errors.has('email')" v-html="credential.errors.get('email')" />
+                <div
+                  class="text-danger"
+                  v-if="credential.errors.has('email')"
+                  v-html="credential.errors.get('email')"
+                />
               </div>
               <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
@@ -27,7 +35,11 @@
                   class="form-control"
                   id="password"
                 />
-                <div class="text-danger" v-if="credential.errors.has('password')" v-html="credential.errors.get('password')" />
+                <div
+                  class="text-danger"
+                  v-if="credential.errors.has('password')"
+                  v-html="credential.errors.get('password')"
+                />
               </div>
               <div class="mb-3">
                 <label for="confirm_password" class="form-label">Confirm Password</label>
@@ -51,7 +63,6 @@
   </div>
 </template>
 <script>
-import Form from 'vform'
 export default {
   name: "Register",
   data() {
@@ -68,7 +79,8 @@ export default {
     handleRegister() {
       axios.get("/sanctum/csrf-cookie").then(response => {
         this.credential.post("/api/auth/register").then(response => {
-          console.log(response);
+          this.credential.reset();
+          this.$router.push({ name: "Login" });
         });
       });
     }

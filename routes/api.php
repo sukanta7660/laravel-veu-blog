@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,4 +22,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
         return $request->user();
     });
 
+    Route::post('/store-post', [PostController::class, 'store_post']);
+
 });
+
+Route::get('categories', [PostController::class, 'categories']);
