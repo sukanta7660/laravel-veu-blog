@@ -12,7 +12,9 @@ Route::group([
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('example', function () {
-        return 'hi swarup';
+
+    Route::get('/authenticated', function(){
+        return true;
     });
+
 });

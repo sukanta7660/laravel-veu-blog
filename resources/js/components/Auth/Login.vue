@@ -5,13 +5,14 @@
         <div class="card">
           <div class="card-header">
             <h3>Login</h3>
-            <small class="text-danger">Create your own session</small>
+            <small class="text-success">Create your own session</small>
           </div>
           <div class="card-body">
             <form action="#" @submit.prevent="handleLogin">
               <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" v-model="credential.email" id="email" />
+                <div class="text-danger" v-if="credential.errors.has('email')" v-html="credential.errors.get('email')" />
               </div>
               <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
@@ -21,6 +22,7 @@
                   class="form-control"
                   id="password"
                 />
+                <div class="text-danger" v-if="credential.errors.has('password')" v-html="credential.errors.get('password')" />
               </div>
               <button type="submit" class="btn btn-primary">Submit</button>
               <p>
@@ -35,21 +37,23 @@
   </div>
 </template>
 <script>
+import Form from 'vform'
 export default {
   name: "Login",
   data() {
     return {
-      credential: {
+      credential: new Form({
         email: null,
         password: null
-      }
+      })
     };
   },
   methods: {
     handleLogin() {
       axios.get("/sanctum/csrf-cookie").then(response => {
-        axios.post("/api/auth/login", this.credential).then(response => {
-          console.log(response);
+        this.credential.post("/api/auth/login").then(response => {
+          this.credential.reset();
+          this.$router.push({ name: "Dashboard" });
         });
       });
     }

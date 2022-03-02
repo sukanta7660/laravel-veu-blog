@@ -7,8 +7,6 @@ Vue.use(VueRouter)
 
 import {routes} from './routes';
 
-
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('main-view', require('./components/Layouts.vue').default);
 
 const router = new VueRouter({
