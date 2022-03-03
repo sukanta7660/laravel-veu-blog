@@ -1,73 +1,66 @@
 <template>
-    <div class="container px-4 px-lg-5 mt-5">
-        <div class="row gx-4 gx-lg-5 justify-content-center" style="margin-top: 110px;">
-            <div class="col-md-10 col-lg-8 col-xl-7">
-                <!-- Post preview-->
-                <div class="post-preview">
-                    <a href="post.html">
-                        <h2 class="post-title">Man must explore, and this is exploration at its greatest</h2>
-                        <h3 class="post-subtitle">Problems look mighty small from 150 miles up</h3>
-                    </a>
-                    <p class="post-meta">
-                        Posted by
-                        <a href="#!">Start Bootstrap</a>
-                        on September 24, 2021
-                    </p>
-                </div>
-                <!-- Divider-->
-                <hr class="my-4" />
-                <!-- Post preview-->
-                <div class="post-preview">
-                    <a href="post.html"><h2 class="post-title">I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.</h2></a>
-                    <p class="post-meta">
-                        Posted by
-                        <a href="#!">Start Bootstrap</a>
-                        on September 18, 2021
-                    </p>
-                </div>
-                <!-- Divider-->
-                <hr class="my-4" />
-                <!-- Post preview-->
-                <div class="post-preview">
-                    <a href="post.html">
-                        <h2 class="post-title">Science has not yet mastered prophecy</h2>
-                        <h3 class="post-subtitle">We predict too much for the next year and yet far too little for the next ten.</h3>
-                    </a>
-                    <p class="post-meta">
-                        Posted by
-                        <a href="#!">Start Bootstrap</a>
-                        on August 24, 2021
-                    </p>
-                </div>
-                <!-- Divider-->
-                <hr class="my-4" />
-                <!-- Post preview-->
-                <div class="post-preview">
-                    <a href="post.html">
-                        <h2 class="post-title">Failure is not an option</h2>
-                        <h3 class="post-subtitle">Many say exploration is part of our destiny, but it’s actually our duty to future generations.</h3>
-                    </a>
-                    <p class="post-meta">
-                        Posted by
-                        <a href="#!">Start Bootstrap</a>
-                        on July 8, 2021
-                    </p>
-                </div>
-                <!-- Divider-->
-                <hr class="my-4" />
-                <!-- Pager-->
-                <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
+  <div class="container px-4 px-lg-5 mt-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center" style="margin-top: 110px;">
+      <div class="col-md-10 col-lg-8 col-xl-7" v-if="posts.length">
+        <div class="view_posts" v-for="(post, index) in posts" :key="index">
+          <div class="post-preview">
+            <a href="post.html">
+              <h2 class="post-title">{{ post.title }}</h2>
+              <h3 class="post-subtitle">{{ post.body }}</h3>
+            </a>
+            <p class="post-meta">
+              Posted by
+              <a href="#!">{{ post.user.name }}</a>
+              on {{ post.created_at | dateFormat }}
+            </p>
+            <div v-if="authUser" class="checker">
+              <p v-if="authUser.id == post.user_id" class="post-meta">
+                <button title="edit" class="btn btn-info btn-sm">Edit</button>
+                <button
+                  @click.prevent="deletePost(post.id)"
+                  title="delete"
+                  class="btn btn-danger btn-sm"
+                >delete</button>
+              </p>
             </div>
+          </div>
+          <hr class="my-4" />
         </div>
+      </div>
     </div>
+  </div>
 </template>
 <script>
+import axios from "axios";
 export default {
   name: "Home",
   data() {
     return {
-
+      posts: null,
+      authUser: null
     };
+  },
+  mounted() {
+    this.fetchAllPosts();
+    this.fetchAuthenticatedUser();
+  },
+  methods: {
+    fetchAuthenticatedUser() {
+      axios.get("/api/user").then(response => {
+        this.authUser = response.data.auth_user;
+      });
+    },
+    fetchAllPosts() {
+      axios.get("/api/all-posts").then(response => {
+        this.posts = response.data.posts;
+      });
+    },
+    deletePost(id) {
+      axios.get("/api/delete-post/" + id).then(() => {
+        this.fetchAllPosts();
+        this.fetchAuthenticatedUser();
+      });
+    }
   }
 };
 </script>

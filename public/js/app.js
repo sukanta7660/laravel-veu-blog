@@ -5708,35 +5708,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Dashboard",
@@ -5744,6 +5715,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       authUser: null,
       categories: null,
+      posts: null,
       formData: new Form({
         title: null,
         body: null,
@@ -5761,7 +5733,8 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/user").then(function (response) {
-        _this.authUser = response.data;
+        _this.authUser = response.data.auth_user;
+        _this.posts = response.data.posts;
       });
     },
     fetchCategories: function fetchCategories() {
@@ -5774,8 +5747,17 @@ __webpack_require__.r(__webpack_exports__);
     storePost: function storePost() {
       var _this3 = this;
 
-      this.formData.post('/api/store-post').then(function () {
+      this.formData.post("/api/store-post").then(function () {
         _this3.formData.reset();
+
+        _this3.fetchAuthenticatedUser();
+      });
+    },
+    deletePost: function deletePost(id) {
+      var _this4 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get('/api/delete-post/' + id).then(function () {
+        _this4.fetchAuthenticatedUser();
       });
     }
   }
@@ -5794,6 +5776,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -5826,41 +5810,43 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Home",
   data: function data() {
-    return {};
+    return {
+      posts: null,
+      authUser: null
+    };
+  },
+  mounted: function mounted() {
+    this.fetchAllPosts();
+    this.fetchAuthenticatedUser();
+  },
+  methods: {
+    fetchAuthenticatedUser: function fetchAuthenticatedUser() {
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/user").then(function (response) {
+        _this.authUser = response.data.auth_user;
+      });
+    },
+    fetchAllPosts: function fetchAllPosts() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/all-posts").then(function (response) {
+        _this2.posts = response.data.posts;
+      });
+    },
+    deletePost: function deletePost(id) {
+      var _this3 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/delete-post/" + id).then(function () {
+        _this3.fetchAllPosts();
+
+        _this3.fetchAuthenticatedUser();
+      });
+    }
   }
 });
 
@@ -5996,7 +5982,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 
 
-vue__WEBPACK_IMPORTED_MODULE_1__["default"].filter('timeformat', function (arg) {
+vue__WEBPACK_IMPORTED_MODULE_1__["default"].filter('dateFormat', function (arg) {
   return moment__WEBPACK_IMPORTED_MODULE_0___default()(arg).format("MMM Do YYYY");
 });
 vue__WEBPACK_IMPORTED_MODULE_1__["default"].filter('sortlength', function (text, length, suffix) {
@@ -50897,15 +50883,9 @@ var render = function () {
             _c("i", [
               _vm._v(
                 "Joined: " +
-                  _vm._s(_vm._f("timeformat")(_vm.authUser.created_at))
+                  _vm._s(_vm._f("dateFormat")(_vm.authUser.created_at))
               ),
             ]),
-          ]),
-          _vm._v(" "),
-          _c("br"),
-          _vm._v(" "),
-          _c("small", [
-            _c("i", [_vm._v("Total Post: " + _vm._s(_vm.authUser.posts))]),
           ]),
           _vm._v(" "),
           _c("br"),
@@ -51130,7 +51110,77 @@ var render = function () {
       ]
     ),
     _vm._v(" "),
-    _vm._m(3),
+    _c(
+      "div",
+      {
+        staticClass: "row gx-4 gx-lg-5 justify-content-center",
+        staticStyle: { "margin-top": "50px" },
+      },
+      [
+        _vm.posts.length
+          ? _c(
+              "div",
+              { staticClass: "col-md-10 col-lg-8 col-xl-7" },
+              _vm._l(_vm.posts, function (post, index) {
+                return _c("div", { key: index, staticClass: "post_view" }, [
+                  _c("div", { staticClass: "post-preview" }, [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _c("h2", { staticClass: "post-title" }, [
+                        _vm._v(_vm._s(post.title)),
+                      ]),
+                      _vm._v(" "),
+                      _c("h3", { staticClass: "post-subtitle" }, [
+                        _vm._v(_vm._s(post.body)),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "post-meta" }, [
+                      _vm._v("\n            Posted by\n            "),
+                      _c("a", { attrs: { href: "#!" } }, [
+                        _vm._v(_vm._s(post.user.name)),
+                      ]),
+                      _vm._v(
+                        "\n            on " +
+                          _vm._s(_vm._f("dateFormat")(post.created_at)) +
+                          "\n          "
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "post-meta" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-info btn-sm",
+                          attrs: { title: "edit" },
+                        },
+                        [_vm._v("Edit")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger btn-sm",
+                          attrs: { title: "delete" },
+                          on: {
+                            click: function ($event) {
+                              $event.preventDefault()
+                              return _vm.deletePost(post.id)
+                            },
+                          },
+                        },
+                        [_vm._v("delete")]
+                      ),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("hr", { staticClass: "my-4" }),
+                ])
+              }),
+              0
+            )
+          : _vm._e(),
+      ]
+    ),
   ])
 }
 var staticRenderFns = [
@@ -51161,122 +51211,12 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { attrs: { for: "category_self_create" } }, [
-      _vm._v("Category ("),
+      _vm._v("\n              Category (\n              "),
       _c("span", { staticClass: "text-danger" }, [
         _vm._v("You can create your own category"),
       ]),
-      _vm._v(")"),
+      _vm._v(")\n            "),
     ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "row gx-4 gx-lg-5 justify-content-center",
-        staticStyle: { "margin-top": "110px" },
-      },
-      [
-        _c("div", { staticClass: "col-md-10 col-lg-8 col-xl-7" }, [
-          _c("div", { staticClass: "post-preview" }, [
-            _c("a", { attrs: { href: "post.html" } }, [
-              _c("h2", { staticClass: "post-title" }, [
-                _vm._v(
-                  "Man must explore, and this is exploration at its greatest"
-                ),
-              ]),
-              _vm._v(" "),
-              _c("h3", { staticClass: "post-subtitle" }, [
-                _vm._v("Problems look mighty small from 150 miles up"),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "post-meta" }, [
-              _vm._v("\n          Posted by\n          "),
-              _c("a", { attrs: { href: "#!" } }, [_vm._v("Start Bootstrap")]),
-              _vm._v("\n          on September 24, 2021\n        "),
-            ]),
-          ]),
-          _vm._v(" "),
-          _c("hr", { staticClass: "my-4" }),
-          _vm._v(" "),
-          _c("div", { staticClass: "post-preview" }, [
-            _c("a", { attrs: { href: "post.html" } }, [
-              _c("h2", { staticClass: "post-title" }, [
-                _vm._v(
-                  "I believe every human has a finite number of heartbeats. I don't intend to waste any of mine."
-                ),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "post-meta" }, [
-              _vm._v("\n          Posted by\n          "),
-              _c("a", { attrs: { href: "#!" } }, [_vm._v("Start Bootstrap")]),
-              _vm._v("\n          on September 18, 2021\n        "),
-            ]),
-          ]),
-          _vm._v(" "),
-          _c("hr", { staticClass: "my-4" }),
-          _vm._v(" "),
-          _c("div", { staticClass: "post-preview" }, [
-            _c("a", { attrs: { href: "post.html" } }, [
-              _c("h2", { staticClass: "post-title" }, [
-                _vm._v("Science has not yet mastered prophecy"),
-              ]),
-              _vm._v(" "),
-              _c("h3", { staticClass: "post-subtitle" }, [
-                _vm._v(
-                  "We predict too much for the next year and yet far too little for the next ten."
-                ),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "post-meta" }, [
-              _vm._v("\n          Posted by\n          "),
-              _c("a", { attrs: { href: "#!" } }, [_vm._v("Start Bootstrap")]),
-              _vm._v("\n          on August 24, 2021\n        "),
-            ]),
-          ]),
-          _vm._v(" "),
-          _c("hr", { staticClass: "my-4" }),
-          _vm._v(" "),
-          _c("div", { staticClass: "post-preview" }, [
-            _c("a", { attrs: { href: "post.html" } }, [
-              _c("h2", { staticClass: "post-title" }, [
-                _vm._v("Failure is not an option"),
-              ]),
-              _vm._v(" "),
-              _c("h3", { staticClass: "post-subtitle" }, [
-                _vm._v(
-                  "Many say exploration is part of our destiny, but it’s actually our duty to future generations."
-                ),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "post-meta" }, [
-              _vm._v("\n          Posted by\n          "),
-              _c("a", { attrs: { href: "#!" } }, [_vm._v("Start Bootstrap")]),
-              _vm._v("\n          on July 8, 2021\n        "),
-            ]),
-          ]),
-          _vm._v(" "),
-          _c("hr", { staticClass: "my-4" }),
-          _vm._v(" "),
-          _c("div", { staticClass: "d-flex justify-content-end mb-4" }, [
-            _c(
-              "a",
-              {
-                staticClass: "btn btn-primary text-uppercase",
-                attrs: { href: "#!" },
-              },
-              [_vm._v("Older Posts →")]
-            ),
-          ]),
-        ]),
-      ]
-    )
   },
 ]
 render._withStripped = true
@@ -51301,130 +51241,87 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container px-4 px-lg-5 mt-5" }, [
+    _c(
+      "div",
+      {
+        staticClass: "row gx-4 gx-lg-5 justify-content-center",
+        staticStyle: { "margin-top": "110px" },
+      },
+      [
+        _vm.posts.length
+          ? _c(
+              "div",
+              { staticClass: "col-md-10 col-lg-8 col-xl-7" },
+              _vm._l(_vm.posts, function (post, index) {
+                return _c("div", { key: index, staticClass: "view_posts" }, [
+                  _c("div", { staticClass: "post-preview" }, [
+                    _c("a", { attrs: { href: "post.html" } }, [
+                      _c("h2", { staticClass: "post-title" }, [
+                        _vm._v(_vm._s(post.title)),
+                      ]),
+                      _vm._v(" "),
+                      _c("h3", { staticClass: "post-subtitle" }, [
+                        _vm._v(_vm._s(post.body)),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "post-meta" }, [
+                      _vm._v("\n            Posted by\n            "),
+                      _c("a", { attrs: { href: "#!" } }, [
+                        _vm._v(_vm._s(post.user.name)),
+                      ]),
+                      _vm._v(
+                        "\n            on " +
+                          _vm._s(_vm._f("dateFormat")(post.created_at)) +
+                          "\n          "
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _vm.authUser
+                      ? _c("div", { staticClass: "checker" }, [
+                          _vm.authUser.id == post.user_id
+                            ? _c("p", { staticClass: "post-meta" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-info btn-sm",
+                                    attrs: { title: "edit" },
+                                  },
+                                  [_vm._v("Edit")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-danger btn-sm",
+                                    attrs: { title: "delete" },
+                                    on: {
+                                      click: function ($event) {
+                                        $event.preventDefault()
+                                        return _vm.deletePost(post.id)
+                                      },
+                                    },
+                                  },
+                                  [_vm._v("delete")]
+                                ),
+                              ])
+                            : _vm._e(),
+                        ])
+                      : _vm._e(),
+                  ]),
+                  _vm._v(" "),
+                  _c("hr", { staticClass: "my-4" }),
+                ])
+              }),
+              0
+            )
+          : _vm._e(),
+      ]
+    ),
+  ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container px-4 px-lg-5 mt-5" }, [
-      _c(
-        "div",
-        {
-          staticClass: "row gx-4 gx-lg-5 justify-content-center",
-          staticStyle: { "margin-top": "110px" },
-        },
-        [
-          _c("div", { staticClass: "col-md-10 col-lg-8 col-xl-7" }, [
-            _c("div", { staticClass: "post-preview" }, [
-              _c("a", { attrs: { href: "post.html" } }, [
-                _c("h2", { staticClass: "post-title" }, [
-                  _vm._v(
-                    "Man must explore, and this is exploration at its greatest"
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("h3", { staticClass: "post-subtitle" }, [
-                  _vm._v("Problems look mighty small from 150 miles up"),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "post-meta" }, [
-                _vm._v("\n                    Posted by\n                    "),
-                _c("a", { attrs: { href: "#!" } }, [_vm._v("Start Bootstrap")]),
-                _vm._v(
-                  "\n                    on September 24, 2021\n                "
-                ),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("hr", { staticClass: "my-4" }),
-            _vm._v(" "),
-            _c("div", { staticClass: "post-preview" }, [
-              _c("a", { attrs: { href: "post.html" } }, [
-                _c("h2", { staticClass: "post-title" }, [
-                  _vm._v(
-                    "I believe every human has a finite number of heartbeats. I don't intend to waste any of mine."
-                  ),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "post-meta" }, [
-                _vm._v("\n                    Posted by\n                    "),
-                _c("a", { attrs: { href: "#!" } }, [_vm._v("Start Bootstrap")]),
-                _vm._v(
-                  "\n                    on September 18, 2021\n                "
-                ),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("hr", { staticClass: "my-4" }),
-            _vm._v(" "),
-            _c("div", { staticClass: "post-preview" }, [
-              _c("a", { attrs: { href: "post.html" } }, [
-                _c("h2", { staticClass: "post-title" }, [
-                  _vm._v("Science has not yet mastered prophecy"),
-                ]),
-                _vm._v(" "),
-                _c("h3", { staticClass: "post-subtitle" }, [
-                  _vm._v(
-                    "We predict too much for the next year and yet far too little for the next ten."
-                  ),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "post-meta" }, [
-                _vm._v("\n                    Posted by\n                    "),
-                _c("a", { attrs: { href: "#!" } }, [_vm._v("Start Bootstrap")]),
-                _vm._v(
-                  "\n                    on August 24, 2021\n                "
-                ),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("hr", { staticClass: "my-4" }),
-            _vm._v(" "),
-            _c("div", { staticClass: "post-preview" }, [
-              _c("a", { attrs: { href: "post.html" } }, [
-                _c("h2", { staticClass: "post-title" }, [
-                  _vm._v("Failure is not an option"),
-                ]),
-                _vm._v(" "),
-                _c("h3", { staticClass: "post-subtitle" }, [
-                  _vm._v(
-                    "Many say exploration is part of our destiny, but it’s actually our duty to future generations."
-                  ),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "post-meta" }, [
-                _vm._v("\n                    Posted by\n                    "),
-                _c("a", { attrs: { href: "#!" } }, [_vm._v("Start Bootstrap")]),
-                _vm._v(
-                  "\n                    on July 8, 2021\n                "
-                ),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("hr", { staticClass: "my-4" }),
-            _vm._v(" "),
-            _c("div", { staticClass: "d-flex justify-content-end mb-4" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "btn btn-primary text-uppercase",
-                  attrs: { href: "#!" },
-                },
-                [_vm._v("Older Posts →")]
-              ),
-            ]),
-          ]),
-        ]
-      ),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

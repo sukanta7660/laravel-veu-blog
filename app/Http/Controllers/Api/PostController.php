@@ -10,6 +10,14 @@ use App\Http\Controllers\Controller;
 
 class PostController extends Controller
 {
+
+    public function all_posts()
+    {
+        return response()->json([
+            'posts' => Post::with('user')->get()
+        ], 200);
+    }
+
     public function categories()
     {
         return response()->json([
@@ -46,6 +54,17 @@ class PostController extends Controller
 
         return response()->json([
             'message' => 'Post Successfully Stored'
+        ], 200);
+    }
+
+    public function delete_post($id)
+    {
+        $post = Post::whereId($id)->firstOrFail();
+        $post->categories()->detach();
+        $post->delete();
+
+        return response()->json([
+            'message' => 'Post Successfully Deleted'
         ], 200);
     }
 }

@@ -1,6 +1,6 @@
 import moment from 'moment'
 import Vue from 'vue'
-Vue.filter('timeformat',(arg)=>{
+Vue.filter('dateFormat',(arg)=>{
     return moment(arg).format("MMM Do YYYY")
 })
 
