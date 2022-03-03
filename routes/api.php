@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\PostController;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -23,13 +24,22 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/user', function () {
         return response()->json([
             'auth_user' => auth()->user(),
-            'posts' => Post::whereUser_id(auth()->user()->id)->with('user')->get()
+            'posts' => Post::whereUser_id(auth()->user()->id)->with(['user', 'categories'])->get()
         ]);
     });
 
     Route::post('/store-post', [PostController::class, 'store_post']);
+    Route::get('/single-post/{id}/{slug}', [PostController::class, 'fetch_single_post']);
+    Route::post('/update-post', [PostController::class, 'update_post']);
     Route::get('/delete-post/{id}', [PostController::class, 'delete_post']);
+
+    Route::get('category-list', [CategoryController::class, 'categories']);
+    Route::post('store-category', [CategoryController::class, 'store_category']);
+    Route::get('/single-category/{id}/{slug}', [CategoryController::class, 'fetch_single_category']);
+    Route::post('/update-category', [CategoryController::class, 'update_category']);
+    Route::get('/delete-category/{id}', [CategoryController::class, 'delete_category']);
 });
 
 Route::get('/all-posts', [PostController::class, 'all_posts']);
+Route::get('/post-details/{id}/{slug}', [PostController::class, 'fetch_single_post']);
 Route::get('categories', [PostController::class, 'categories']);

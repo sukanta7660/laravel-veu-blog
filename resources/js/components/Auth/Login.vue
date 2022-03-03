@@ -32,7 +32,7 @@
                   v-html="credential.errors.get('password')"
                 />
               </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary">Login</button>
               <p>
                 Dont have any account? please
                 <router-link to="/register">register here</router-link>

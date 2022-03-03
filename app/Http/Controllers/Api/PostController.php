@@ -14,7 +14,7 @@ class PostController extends Controller
     public function all_posts()
     {
         return response()->json([
-            'posts' => Post::with('user')->get()
+            'posts' => Post::with(['user', 'categories'])->get()
         ], 200);
     }
 
@@ -54,6 +54,55 @@ class PostController extends Controller
 
         return response()->json([
             'message' => 'Post Successfully Stored'
+        ], 200);
+    }
+
+    public function fetch_single_post($id, $slug)
+    {
+        $post = Post::where([
+            'id' => $id,
+            'slug' => $slug
+        ])
+            ->with(['user', 'categories'])
+            ->firstOrFail();
+
+        return response()->json([
+            'post' => $post
+        ]);
+    }
+
+    public function update_post(Request $request)
+    {
+        $request->validate([
+            'title' => 'required | string | max: 255',
+            'body' => 'required',
+            'categories' => 'required',
+            'name' => 'max: 100 | unique:categories'
+        ]);
+
+        $post = Post::whereId($request->id)->firstOrFail();
+
+        $post->categories()->detach();
+
+        $post->update([
+            'title' => $request->title,
+            'slug' => Str::slug($request->title) . '-' . time(),
+            'body' => $request->body,
+        ]);
+
+        $post->categories()->attach($request->categories);
+
+        if ($request->name) {
+            $category = Category::create([
+                'name' => $request->name,
+                'slug' => Str::slug($request->name),
+            ]);
+
+            $post->categories()->attach($category->id);
+        }
+
+        return response()->json([
+            'message' => 'Post Successfully Updated'
         ], 200);
     }
 

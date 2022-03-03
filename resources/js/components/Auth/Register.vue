@@ -50,7 +50,7 @@
                   id="confirm_password"
                 />
               </div>
-              <button type="submit" class="btn btn-primary" :disabled="credential.busy">Submit</button>
+              <button type="submit" class="btn btn-primary" :disabled="credential.busy">Register</button>
               <p>
                 Already have an account? please
                 <router-link to="/login">login</router-link>
