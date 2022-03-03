@@ -11,7 +11,7 @@
         </small>
         <br />
         <small>
-          <button class="btn btn-danger btn-sm">Logout</button>
+          <button @click.prevent="logoutHandaler" class="btn btn-danger btn-sm">Logout</button>
         </small>
       </div>
     </div>
@@ -139,6 +139,11 @@ export default {
     this.fetchCategories();
   },
   methods: {
+    logoutHandaler(){
+        axios.post('/api/auth/logout').then( () => {
+            this.$router.push({ name: "Home" });
+        })
+    },
     fetchAuthenticatedUser() {
       axios.get("/api/user").then(response => {
         this.authUser = response.data.auth_user;

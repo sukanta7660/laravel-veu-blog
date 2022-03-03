@@ -5729,35 +5729,44 @@ __webpack_require__.r(__webpack_exports__);
     this.fetchCategories();
   },
   methods: {
-    fetchAuthenticatedUser: function fetchAuthenticatedUser() {
+    logoutHandaler: function logoutHandaler() {
       var _this = this;
 
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/auth/logout').then(function () {
+        _this.$router.push({
+          name: "Home"
+        });
+      });
+    },
+    fetchAuthenticatedUser: function fetchAuthenticatedUser() {
+      var _this2 = this;
+
       axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/user").then(function (response) {
-        _this.authUser = response.data.auth_user;
-        _this.posts = response.data.posts;
+        _this2.authUser = response.data.auth_user;
+        _this2.posts = response.data.posts;
       });
     },
     fetchCategories: function fetchCategories() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/categories").then(function (response) {
-        _this2.categories = response.data.categories;
+        _this3.categories = response.data.categories;
       });
     },
     storePost: function storePost() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.formData.post("/api/store-post").then(function () {
-        _this3.formData.reset();
+        _this4.formData.reset();
 
-        _this3.fetchAuthenticatedUser();
+        _this4.fetchAuthenticatedUser();
       });
     },
     deletePost: function deletePost(id) {
-      var _this4 = this;
+      var _this5 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default().get('/api/delete-post/' + id).then(function () {
-        _this4.fetchAuthenticatedUser();
+        _this5.fetchAuthenticatedUser();
       });
     }
   }
@@ -50890,7 +50899,21 @@ var render = function () {
           _vm._v(" "),
           _c("br"),
           _vm._v(" "),
-          _vm._m(0),
+          _c("small", [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-danger btn-sm",
+                on: {
+                  click: function ($event) {
+                    $event.preventDefault()
+                    return _vm.logoutHandaler.apply(null, arguments)
+                  },
+                },
+              },
+              [_vm._v("Logout")]
+            ),
+          ]),
         ]),
       ]
     ),
@@ -50919,7 +50942,7 @@ var render = function () {
               },
               [
                 _c("div", {}, [
-                  _vm._m(1),
+                  _vm._m(0),
                   _vm._v(" "),
                   _c(
                     "select",
@@ -51003,7 +51026,7 @@ var render = function () {
                     },
                   }),
                   _vm._v(" "),
-                  _vm._m(2),
+                  _vm._m(1),
                   _vm._v(" "),
                   _vm.formData.errors.has("name")
                     ? _c("div", {
@@ -51188,16 +51211,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("small", [
-      _c("button", { staticClass: "btn btn-danger btn-sm" }, [
-        _vm._v("Logout"),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("label", { attrs: { for: "category" } }, [
       _vm._v("\n              Category (\n              "),
       _c("span", { staticClass: "text-danger" }, [
@@ -51256,7 +51269,7 @@ var render = function () {
               _vm._l(_vm.posts, function (post, index) {
                 return _c("div", { key: index, staticClass: "view_posts" }, [
                   _c("div", { staticClass: "post-preview" }, [
-                    _c("a", { attrs: { href: "post.html" } }, [
+                    _c("a", { attrs: { href: "#" } }, [
                       _c("h2", { staticClass: "post-title" }, [
                         _vm._v(_vm._s(post.title)),
                       ]),

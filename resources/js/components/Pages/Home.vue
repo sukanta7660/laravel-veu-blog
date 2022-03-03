@@ -4,7 +4,7 @@
       <div class="col-md-10 col-lg-8 col-xl-7" v-if="posts.length">
         <div class="view_posts" v-for="(post, index) in posts" :key="index">
           <div class="post-preview">
-            <a href="post.html">
+            <a href="#">
               <h2 class="post-title">{{ post.title }}</h2>
               <h3 class="post-subtitle">{{ post.body }}</h3>
             </a>
