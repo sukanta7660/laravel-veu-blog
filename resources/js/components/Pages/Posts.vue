@@ -2,11 +2,11 @@
   <div class="container px-4 px-lg-5 mt-5">
     <div class="row gx-4 gx-lg-5 justify-content-center" style="margin-top: 110px;">
       <div class="col-md-4">
-        <Sidebar/>
+        <Sidebar />
       </div>
-      <div class="col-md-10 col-lg-8 col-xl-7" v-if="posts.length">
-      <h2>Your Posts</h2>
-      <hr>
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <h2>Your Posts</h2>
+        <hr />
         <div class="post_view" v-for="(post, index) in posts" :key="index">
           <div class="post-preview">
             <router-link :to="`/post-details/${post.id}/${post.slug}`">
@@ -48,16 +48,17 @@
 </template>
 <script>
 import axios from "axios";
-import Sidebar from '../shared/Sidebar.vue'
+import swal from "sweetalert2";
+import Sidebar from "../shared/Sidebar.vue";
 export default {
   name: "Posts",
   components: {
-      Sidebar
+    Sidebar
   },
   data() {
     return {
       authUser: null,
-      posts: null,
+      posts: null
     };
   },
   mounted() {
@@ -72,6 +73,13 @@ export default {
     },
     deletePost(id) {
       axios.get("/api/delete-post/" + id).then(() => {
+        swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Post Deleted successfully",
+          showConfirmButton: false,
+          timer: 1500
+        });
         this.fetchAuthenticatedUser();
       });
     }

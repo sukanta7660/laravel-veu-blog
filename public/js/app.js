@@ -6304,20 +6304,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Home",
@@ -6329,30 +6315,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.fetchAllPosts();
-    this.fetchAuthenticatedUser();
   },
   methods: {
-    fetchAuthenticatedUser: function fetchAuthenticatedUser() {
+    fetchAllPosts: function fetchAllPosts() {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/user").then(function (response) {
-        _this.authUser = response.data.auth_user;
-      });
-    },
-    fetchAllPosts: function fetchAllPosts() {
-      var _this2 = this;
-
       axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/all-posts").then(function (response) {
-        _this2.posts = response.data.posts;
-      });
-    },
-    deletePost: function deletePost(id) {
-      var _this3 = this;
-
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/delete-post/" + id).then(function () {
-        _this3.fetchAllPosts();
-
-        _this3.fetchAuthenticatedUser();
+        _this.posts = response.data.posts;
       });
     }
   }
@@ -6373,7 +6342,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _shared_Sidebar_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../shared/Sidebar.vue */ "./resources/js/components/shared/Sidebar.vue");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _shared_Sidebar_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../shared/Sidebar.vue */ "./resources/js/components/shared/Sidebar.vue");
 //
 //
 //
@@ -6422,12 +6393,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Posts",
   components: {
-    Sidebar: _shared_Sidebar_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    Sidebar: _shared_Sidebar_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
@@ -6451,6 +6423,14 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/delete-post/" + id).then(function () {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
+          position: "top-end",
+          icon: "success",
+          title: "Post Deleted successfully",
+          showConfirmButton: false,
+          timer: 1500
+        });
+
         _this2.fetchAuthenticatedUser();
       });
     }
@@ -56606,50 +56586,6 @@ var render = function () {
                         ],
                         1
                       ),
-                      _vm._v(" "),
-                      _vm.authUser
-                        ? _c("div", { staticClass: "checker" }, [
-                            _vm.authUser.id == post.user_id
-                              ? _c(
-                                  "p",
-                                  { staticClass: "post-meta" },
-                                  [
-                                    _c(
-                                      "router-link",
-                                      {
-                                        staticClass: "btn btn-info btn-sm",
-                                        attrs: {
-                                          to:
-                                            "/edit-post/" +
-                                            post.id +
-                                            "/" +
-                                            post.slug,
-                                          title: "edit",
-                                        },
-                                      },
-                                      [_vm._v("Edit")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass: "btn btn-danger btn-sm",
-                                        attrs: { title: "delete" },
-                                        on: {
-                                          click: function ($event) {
-                                            $event.preventDefault()
-                                            return _vm.deletePost(post.id)
-                                          },
-                                        },
-                                      },
-                                      [_vm._v("delete")]
-                                    ),
-                                  ],
-                                  1
-                                )
-                              : _vm._e(),
-                          ])
-                        : _vm._e(),
                     ],
                     1
                   ),
@@ -56697,119 +56633,115 @@ var render = function () {
       [
         _c("div", { staticClass: "col-md-4" }, [_c("Sidebar")], 1),
         _vm._v(" "),
-        _vm.posts.length
-          ? _c(
-              "div",
-              { staticClass: "col-md-10 col-lg-8 col-xl-7" },
-              [
-                _c("h2", [_vm._v("Your Posts")]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _vm._l(_vm.posts, function (post, index) {
-                  return _c("div", { key: index, staticClass: "post_view" }, [
+        _c(
+          "div",
+          { staticClass: "col-md-10 col-lg-8 col-xl-7" },
+          [
+            _c("h2", [_vm._v("Your Posts")]),
+            _vm._v(" "),
+            _c("hr"),
+            _vm._v(" "),
+            _vm._l(_vm.posts, function (post, index) {
+              return _c("div", { key: index, staticClass: "post_view" }, [
+                _c(
+                  "div",
+                  { staticClass: "post-preview" },
+                  [
                     _c(
-                      "div",
-                      { staticClass: "post-preview" },
+                      "router-link",
+                      {
+                        attrs: {
+                          to: "/post-details/" + post.id + "/" + post.slug,
+                        },
+                      },
+                      [
+                        _c("h2", { staticClass: "post-title" }, [
+                          _vm._v(_vm._s(post.title)),
+                        ]),
+                        _vm._v(" "),
+                        _c("h3", { staticClass: "post-subtitle" }, [
+                          _vm._v(
+                            _vm._s(_vm._f("sortlength")(post.body, 150, "..."))
+                          ),
+                        ]),
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "p",
+                      { staticClass: "post-meta" },
+                      [
+                        _vm._v("\n            Categories:\n            "),
+                        _vm._l(post.categories, function (category, index) {
+                          return _c(
+                            "span",
+                            {
+                              key: index,
+                              staticClass: "badge bg-success",
+                              staticStyle: { "margin-right": "10px" },
+                            },
+                            [_vm._v(_vm._s(category.name))]
+                          )
+                        }),
+                      ],
+                      2
+                    ),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "post-meta" }, [
+                      _vm._v("\n            Posted by\n            "),
+                      _c("a", { attrs: { href: "#!" } }, [
+                        _vm._v(_vm._s(post.user.name)),
+                      ]),
+                      _vm._v(
+                        "\n            on " +
+                          _vm._s(_vm._f("dateFormat")(post.created_at)) +
+                          "\n          "
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "p",
+                      { staticClass: "post-meta" },
                       [
                         _c(
                           "router-link",
                           {
+                            staticClass: "btn btn-info btn-sm",
                             attrs: {
-                              to: "/post-details/" + post.id + "/" + post.slug,
+                              to: "/edit-post/" + post.id + "/" + post.slug,
+                              title: "edit",
                             },
                           },
-                          [
-                            _c("h2", { staticClass: "post-title" }, [
-                              _vm._v(_vm._s(post.title)),
-                            ]),
-                            _vm._v(" "),
-                            _c("h3", { staticClass: "post-subtitle" }, [
-                              _vm._v(
-                                _vm._s(
-                                  _vm._f("sortlength")(post.body, 150, "...")
-                                )
-                              ),
-                            ]),
-                          ]
+                          [_vm._v("Edit")]
                         ),
                         _vm._v(" "),
                         _c(
-                          "p",
-                          { staticClass: "post-meta" },
-                          [
-                            _vm._v("\n            Categories:\n            "),
-                            _vm._l(post.categories, function (category, index) {
-                              return _c(
-                                "span",
-                                {
-                                  key: index,
-                                  staticClass: "badge bg-success",
-                                  staticStyle: { "margin-right": "10px" },
-                                },
-                                [_vm._v(_vm._s(category.name))]
-                              )
-                            }),
-                          ],
-                          2
-                        ),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "post-meta" }, [
-                          _vm._v("\n            Posted by\n            "),
-                          _c("a", { attrs: { href: "#!" } }, [
-                            _vm._v(_vm._s(post.user.name)),
-                          ]),
-                          _vm._v(
-                            "\n            on " +
-                              _vm._s(_vm._f("dateFormat")(post.created_at)) +
-                              "\n          "
-                          ),
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "p",
-                          { staticClass: "post-meta" },
-                          [
-                            _c(
-                              "router-link",
-                              {
-                                staticClass: "btn btn-info btn-sm",
-                                attrs: {
-                                  to: "/edit-post/" + post.id + "/" + post.slug,
-                                  title: "edit",
-                                },
+                          "button",
+                          {
+                            staticClass: "btn btn-danger btn-sm",
+                            attrs: { title: "delete" },
+                            on: {
+                              click: function ($event) {
+                                $event.preventDefault()
+                                return _vm.deletePost(post.id)
                               },
-                              [_vm._v("Edit")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-danger btn-sm",
-                                attrs: { title: "delete" },
-                                on: {
-                                  click: function ($event) {
-                                    $event.preventDefault()
-                                    return _vm.deletePost(post.id)
-                                  },
-                                },
-                              },
-                              [_vm._v("delete")]
-                            ),
-                          ],
-                          1
+                            },
+                          },
+                          [_vm._v("delete")]
                         ),
                       ],
                       1
                     ),
-                    _vm._v(" "),
-                    _c("hr", { staticClass: "my-4" }),
-                  ])
-                }),
-              ],
-              2
-            )
-          : _vm._e(),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("hr", { staticClass: "my-4" }),
+              ])
+            }),
+          ],
+          2
+        ),
       ]
     ),
   ])

@@ -22,20 +22,6 @@
               <router-link to="#!">{{ post.user.name }}</router-link>
               on {{ post.created_at | dateFormat }}
             </p>
-            <div v-if="authUser" class="checker">
-              <p v-if="authUser.id == post.user_id" class="post-meta">
-                <router-link
-                  :to="`/edit-post/${post.id}/${post.slug}`"
-                  title="edit"
-                  class="btn btn-info btn-sm"
-                >Edit</router-link>
-                <button
-                  @click.prevent="deletePost(post.id)"
-                  title="delete"
-                  class="btn btn-danger btn-sm"
-                >delete</button>
-              </p>
-            </div>
           </div>
           <hr class="my-4" />
         </div>
@@ -55,23 +41,11 @@ export default {
   },
   mounted() {
     this.fetchAllPosts();
-    this.fetchAuthenticatedUser();
   },
   methods: {
-    fetchAuthenticatedUser() {
-      axios.get("/api/user").then(response => {
-        this.authUser = response.data.auth_user;
-      });
-    },
     fetchAllPosts() {
       axios.get("/api/all-posts").then(response => {
         this.posts = response.data.posts;
-      });
-    },
-    deletePost(id) {
-      axios.get("/api/delete-post/" + id).then(() => {
-        this.fetchAllPosts();
-        this.fetchAuthenticatedUser();
       });
     }
   }
