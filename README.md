@@ -4,7 +4,7 @@
 ## Installation
 1. Clone the project `git clone https://github.com/sukanta7660/laravel-vue-blog.git`
 
-2. Go to project folder by entering `cd laravel-veu-blog` command
+2. Go to project folder by entering `cd laravel-vue-blog` command
 
 3. Install composer following by this command: `composer install --ignore-platform-reqs`
 
@@ -13,7 +13,7 @@
 5. Compile the vue components by this command: `npm run watch`
 
 
-6. Copy `.env.example` file to `.env` on the root folder. You can type `copy .env.example .env` or `cp .env.example .env` using terminal in pathshala-api directory.
+6. Copy `.env.example` file to `.env` on the root folder. You can type `copy .env.example .env` or `cp .env.example .env` using terminal in laravel-vue-blog directory.
 
 7. Open your database ***XAMPP / LAMP / HeidiSQL*** (Whatever you use).
     Create a new database with any database name. `For Example:  blog`
