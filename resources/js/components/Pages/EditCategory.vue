@@ -1,12 +1,12 @@
 <template>
   <div class="container px-4 px-lg-5 mt-5">
     <div class="row gx-4 gx-lg-5 justify-content-center" style="margin-top: 110px;">
-    <div class="col-md-4">
-        <sidebar/>
-    </div>
+      <div class="col-md-4">
+        <sidebar />
+      </div>
       <div class="col-md-8 col-lg-8 col-xl-7">
         <h2>Edit Category</h2>
-        <hr>
+        <hr />
         <div class="my-5">
           <form method="post" action="#" @submit.prevent="updateCategory">
             <div class="row">
@@ -43,7 +43,8 @@
 </template>
 <script>
 import axios from "axios";
-import Sidebar from '../shared/Sidebar.vue'
+import swal from "sweetalert2";
+import Sidebar from "../shared/Sidebar.vue";
 export default {
   name: "EditCategory",
   components: {
@@ -74,6 +75,14 @@ export default {
 
     updateCategory() {
       this.formData.post("/api/update-category").then(() => {
+        swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Category updated successfully",
+          showConfirmButton: false,
+          timer: 1500
+        });
+
         this.$router.push({ name: "Categories" });
       });
     }

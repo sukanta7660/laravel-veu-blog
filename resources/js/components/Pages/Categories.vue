@@ -52,8 +52,15 @@
                 <td>{{ category.name }}</td>
                 <td>{{ category.slug }}</td>
                 <td>
-                    <router-link :to="`/edit-category/${category.id}/${category.slug}`" class="btn btn-sm btn-success">Edit</router-link>
-                    <button type="button" @click.prevent="deleteCategory(category.id)" class="btn btn-sm btn-danger">Delete</button>
+                  <router-link
+                    :to="`/edit-category/${category.id}/${category.slug}`"
+                    class="btn btn-sm btn-success"
+                  >Edit</router-link>
+                  <button
+                    type="button"
+                    @click.prevent="deleteCategory(category.id)"
+                    class="btn btn-sm btn-danger"
+                  >Delete</button>
                 </td>
               </tr>
             </tbody>
@@ -65,6 +72,7 @@
 </template>
 <script>
 import axios from "axios";
+import swal from "sweetalert2";
 import Sidebar from "../shared/Sidebar.vue";
 export default {
   name: "Categories",
@@ -89,15 +97,24 @@ export default {
       });
     },
     fetchCategories() {
-      axios.get('/api/category-list').then( response => {
-          this.categories = response.data.categories
-      })
+      axios.get("/api/category-list").then(response => {
+        this.categories = response.data.categories;
+      });
     },
     storeCategory() {
-      this.formData.post('/api/store-category').then( () => {
-          this.formData.reset();
-          this.fetchCategories();
-      })
+      this.formData.post("/api/store-category").then(() => {
+        this.formData.reset();
+
+        swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Category Added successfully",
+          showConfirmButton: false,
+          timer: 1500
+        });
+
+        this.fetchCategories();
+      });
     },
     deleteCategory(id) {
       axios.get("/api/delete-category/" + id).then(() => {

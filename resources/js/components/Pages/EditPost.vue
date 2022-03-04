@@ -6,7 +6,7 @@
       </div>
       <div class="col-md-8 col-lg-8 col-xl-7">
         <h2>Edit Post</h2>
-        <hr>
+        <hr />
         <div class="my-5">
           <form method="post" action="#" @submit.prevent="updatePost">
             <div class>
@@ -89,7 +89,8 @@
   </div>
 </template>
 <script>
-import axios from "axios";
+import axios from 'axios'
+import swal from 'sweetalert2'
 import Sidebar from "../shared/Sidebar.vue";
 export default {
   name: "EditPost",
@@ -129,11 +130,19 @@ export default {
         )
         .then(response => {
           this.formData.fill(response.data.post);
+          this.formData.categories = response.data.categories
         });
     },
 
     updatePost() {
       this.formData.post("/api/update-post").then(() => {
+        swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Post updated successfully",
+          showConfirmButton: false,
+          timer: 1500
+        });
         this.$router.push({ name: "Posts" });
       });
     }

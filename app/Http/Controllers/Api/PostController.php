@@ -63,11 +63,15 @@ class PostController extends Controller
             'id' => $id,
             'slug' => $slug
         ])
-            ->with(['user', 'categories'])
+            ->with([
+                'user',
+                'categories'
+            ])
             ->firstOrFail();
 
         return response()->json([
-            'post' => $post
+            'post' => $post,
+            'categories' => $post->categories->pluck('id')
         ]);
     }
 

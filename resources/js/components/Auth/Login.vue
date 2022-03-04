@@ -45,6 +45,7 @@
   </div>
 </template>
 <script>
+import swal from 'sweetalert2'
 export default {
   name: "Login",
   data() {
@@ -60,6 +61,15 @@ export default {
       axios.get("/sanctum/csrf-cookie").then(response => {
         this.credential.post("/api/auth/login").then(response => {
           this.credential.reset();
+
+          swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Logged in successfully",
+            showConfirmButton: false,
+            timer: 1500
+          });
+
           this.$router.push({ name: "Dashboard" });
         });
       });

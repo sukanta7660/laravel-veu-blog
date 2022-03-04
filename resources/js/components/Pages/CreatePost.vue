@@ -83,6 +83,7 @@
 </template>
 <script>
 import axios from "axios";
+import swal from 'sweetalert2'
 import Sidebar from "../shared/Sidebar.vue";
 export default {
   name: "CreatePost",
@@ -119,6 +120,15 @@ export default {
     storePost() {
       this.formData.post("/api/store-post").then(() => {
         this.formData.reset();
+
+        swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Post created successfully",
+            showConfirmButton: false,
+            timer: 1500
+          });
+
         this.$router.push({ name: "Posts" });
       });
     }
