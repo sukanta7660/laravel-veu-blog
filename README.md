@@ -2,7 +2,7 @@
 
 
 ## Installation
-1. Clone the project `git clone https://github.com/sukanta7660/laravel-veu-blog.git`
+1. Clone the project `git clone https://github.com/sukanta7660/laravel-vue-blog.git`
 
 2. Go to project folder by entering `cd laravel-veu-blog` command
 
