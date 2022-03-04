@@ -14,7 +14,7 @@ class PostController extends Controller
     public function all_posts()
     {
         return response()->json([
-            'posts' => Post::with(['user', 'categories'])->get()
+            'posts' => Post::with(['user', 'categories'])->latest()->get()
         ], 200);
     }
 

@@ -18,6 +18,7 @@
   </ul>
 </template>
 <script>
+import swal from "sweetalert2";
 export default {
   name: "SideBar",
 
@@ -30,6 +31,15 @@ export default {
   methods: {
     logoutHandaler() {
       axios.post("/api/auth/logout").then(() => {
+
+        swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "You are successfully logged out",
+          showConfirmButton: false,
+          timer: 1500
+        });
+
         this.$router.push({ name: "Home" });
       });
     }

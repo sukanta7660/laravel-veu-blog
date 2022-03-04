@@ -24,7 +24,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/user', function () {
         return response()->json([
             'auth_user' => auth()->user(),
-            'posts' => Post::whereUser_id(auth()->user()->id)->with(['user', 'categories'])->get()
+            'posts' => Post::whereUser_id(auth()->user()->id)->with(['user', 'categories'])->latest()->get()
         ]);
     });
 

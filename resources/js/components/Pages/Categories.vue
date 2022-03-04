@@ -91,11 +91,6 @@ export default {
     this.fetchCategories();
   },
   methods: {
-    logoutHandaler() {
-      axios.post("/api/auth/logout").then(() => {
-        this.$router.push({ name: "Home" });
-      });
-    },
     fetchCategories() {
       axios.get("/api/category-list").then(response => {
         this.categories = response.data.categories;
@@ -117,9 +112,28 @@ export default {
       });
     },
     deleteCategory(id) {
-      axios.get("/api/delete-category/" + id).then(() => {
-        this.fetchCategories();
-      });
+      axios
+        .get("/api/delete-category/" + id)
+        .then(() => {
+          swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Category deleted successfully",
+            showConfirmButton: false,
+            timer: 1500
+          });
+
+          this.fetchCategories();
+        })
+        .catch(error => {
+          swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Category has posts",
+            showConfirmButton: false,
+            timer: 1500
+          });
+        });
     }
   }
 };

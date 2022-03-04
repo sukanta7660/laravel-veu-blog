@@ -66,9 +66,9 @@ class CategoryController extends Controller
 
     public function delete_category($id)
     {
-        $category = Category::whereId($id)->firstOrFail();
+        $category = Category::whereId($id)->with('posts')->firstOrFail();
 
-        if (!$category->has('posts')) {
+        if (!$category->posts->count()) {
 
             $category->delete();
 

@@ -5695,27 +5695,18 @@ __webpack_require__.r(__webpack_exports__);
     this.fetchCategories();
   },
   methods: {
-    logoutHandaler: function logoutHandaler() {
+    fetchCategories: function fetchCategories() {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/auth/logout").then(function () {
-        _this.$router.push({
-          name: "Home"
-        });
-      });
-    },
-    fetchCategories: function fetchCategories() {
-      var _this2 = this;
-
       axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/category-list").then(function (response) {
-        _this2.categories = response.data.categories;
+        _this.categories = response.data.categories;
       });
     },
     storeCategory: function storeCategory() {
-      var _this3 = this;
+      var _this2 = this;
 
       this.formData.post("/api/store-category").then(function () {
-        _this3.formData.reset();
+        _this2.formData.reset();
 
         sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
           position: "top-end",
@@ -5725,14 +5716,30 @@ __webpack_require__.r(__webpack_exports__);
           timer: 1500
         });
 
-        _this3.fetchCategories();
+        _this2.fetchCategories();
       });
     },
     deleteCategory: function deleteCategory(id) {
-      var _this4 = this;
+      var _this3 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/delete-category/" + id).then(function () {
-        _this4.fetchCategories();
+        sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
+          position: "top-end",
+          icon: "success",
+          title: "Category deleted successfully",
+          showConfirmButton: false,
+          timer: 1500
+        });
+
+        _this3.fetchCategories();
+      })["catch"](function (error) {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
+          position: "top-end",
+          icon: "error",
+          title: "Category has posts",
+          showConfirmButton: false,
+          timer: 1500
+        });
       });
     }
   }
@@ -6568,6 +6575,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -6587,6 +6596,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "SideBar",
   data: function data() {
@@ -6598,6 +6608,14 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.post("/api/auth/logout").then(function () {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+          position: "top-end",
+          icon: "success",
+          title: "You are successfully logged out",
+          showConfirmButton: false,
+          timer: 1500
+        });
+
         _this.$router.push({
           name: "Home"
         });
