@@ -12,7 +12,11 @@
               <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" v-model="credential.email" id="email" />
-                <div class="text-danger" v-if="credential.errors.has('email')" v-html="credential.errors.get('email')" />
+                <div
+                  class="text-danger"
+                  v-if="credential.errors.has('email')"
+                  v-html="credential.errors.get('email')"
+                />
               </div>
               <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
@@ -22,9 +26,13 @@
                   class="form-control"
                   id="password"
                 />
-                <div class="text-danger" v-if="credential.errors.has('password')" v-html="credential.errors.get('password')" />
+                <div
+                  class="text-danger"
+                  v-if="credential.errors.has('password')"
+                  v-html="credential.errors.get('password')"
+                />
               </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary">Login</button>
               <p>
                 Dont have any account? please
                 <router-link to="/register">register here</router-link>
@@ -37,7 +45,7 @@
   </div>
 </template>
 <script>
-import Form from 'vform'
+import swal from 'sweetalert2'
 export default {
   name: "Login",
   data() {
@@ -53,6 +61,15 @@ export default {
       axios.get("/sanctum/csrf-cookie").then(response => {
         this.credential.post("/api/auth/login").then(response => {
           this.credential.reset();
+
+          swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Logged in successfully",
+            showConfirmButton: false,
+            timer: 1500
+          });
+
           this.$router.push({ name: "Dashboard" });
         });
       });

@@ -60,4 +60,9 @@ class AuthController extends Controller
             'error' => 'Credential not matched'
         ], 400);
     }
+
+    public function logout()
+    {
+        Auth::logout();
+    }
 }
