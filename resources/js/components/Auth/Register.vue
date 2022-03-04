@@ -5,7 +5,7 @@
         <div class="card">
           <div class="card-header">
             <h3>Register</h3>
-            <small class="text-danger">Be a honarable member of our sites</small>
+            <small class="text-danger">Be a member of Bloggo</small>
           </div>
           <div class="card-body">
             <form action="#" @submit.prevent="handleRegister">
@@ -63,6 +63,7 @@
   </div>
 </template>
 <script>
+import swal from 'sweetalert2'
 export default {
   name: "Register",
   data() {
@@ -80,6 +81,13 @@ export default {
       axios.get("/sanctum/csrf-cookie").then(response => {
         this.credential.post("/api/auth/register").then(response => {
           this.credential.reset();
+          swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Registered successfully",
+            showConfirmButton: false,
+            timer: 1500
+          });
           this.$router.push({ name: "Login" });
         });
       });

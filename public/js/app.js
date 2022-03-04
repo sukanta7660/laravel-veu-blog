@@ -5461,6 +5461,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -5525,6 +5527,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Register",
   data: function data() {
@@ -5544,6 +5547,14 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("/sanctum/csrf-cookie").then(function (response) {
         _this.credential.post("/api/auth/register").then(function (response) {
           _this.credential.reset();
+
+          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+            position: "top-end",
+            icon: "success",
+            title: "Registered successfully",
+            showConfirmButton: false,
+            timer: 1500
+          });
 
           _this.$router.push({
             name: "Login"
@@ -55544,7 +55555,7 @@ var staticRenderFns = [
       _c("h3", [_vm._v("Register")]),
       _vm._v(" "),
       _c("small", { staticClass: "text-danger" }, [
-        _vm._v("Be a honarable member of our sites"),
+        _vm._v("Be a member of Bloggo"),
       ]),
     ])
   },
