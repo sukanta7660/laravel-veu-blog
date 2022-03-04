@@ -30,7 +30,7 @@ php artisan optimize:clear
 ------------
 >  **For Migrating Database:**
 ```
-php artisan migrate
+php artisan migrate --seed
 ```
 ------------
 
